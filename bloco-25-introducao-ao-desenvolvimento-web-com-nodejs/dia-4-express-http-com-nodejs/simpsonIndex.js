@@ -15,6 +15,16 @@ app.get('/simpsons', rescue( async(_req, res) => {
   res.status(200).json(simpsons);
 }));
 
+// exercicio 7
+app.get('/simpsons/:id', rescue( async(req, res) =>{
+  const simpsons = await simpsonsUtils.recSimpson();
+  const simpsonsId = simpsons.find(({ id }) => id === req.params.id);
+  if(!simpsonsId) {
+    return res.status(404).json({ "message": "simpson not found" });
+  }
+  res.status(200).json(simpsonsId);
+}));
+
 app.use(function (err, req, res, next) {
   res.status(500).send(`Erro? ${err.message}`);
 });
