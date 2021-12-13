@@ -5,6 +5,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
+// exercicio 1
 app.get('/ping', (_req, res) => res.json({ "message": "pong" }));
 
 app.use(function (err, req, res, next) {
