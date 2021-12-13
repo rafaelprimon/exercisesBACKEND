@@ -25,6 +25,19 @@ app.get('/simpsons/:id', rescue( async(req, res) =>{
   res.status(200).json(simpsonsId);
 }));
 
+// exercicio 8
+app.post('./simpsons', rescue( async(req, res) => {
+  const { name, id } = req.body;
+  const simpsons = await simpsonsUtils.recSimpson();
+ if (simpsons.map(({ id }) => id).includes(id)) {
+   return res.status(409).json({ "message": 'id already exists' });
+ };
+
+ simpsons.push({ name, id });
+  await simpsonsUtils.setSimpson(simpsons);
+  res.status(204).end();
+}));
+
 app.use(function (err, req, res, next) {
   res.status(500).send(`Erro? ${err.message}`);
 });
