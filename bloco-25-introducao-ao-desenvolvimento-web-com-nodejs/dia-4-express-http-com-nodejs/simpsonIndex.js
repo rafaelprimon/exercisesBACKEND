@@ -9,6 +9,11 @@ const app = express();
 
 app.use(bodyParser.json());
 
+// exercicio 6
+app.get('/simpsons', rescue( async(_req, res) => {
+  const simpsons = await simpsonsUtils.recSimpson()
+  res.status(200).json(simpsons);
+}));
 
 app.use(function (err, req, res, next) {
   res.status(500).send(`Erro? ${err.message}`);
